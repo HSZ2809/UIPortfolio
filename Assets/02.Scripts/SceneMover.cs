@@ -12,16 +12,18 @@ public class SceneMover : MonoBehaviour
     }
 
     // public method
-    public void StartScene()
+    public void LoadScene(string targetScene)
     {
-        StartCoroutine("LoadScene");
+        StartCoroutine(LoadTargetScene(targetScene));
     }
     
-    IEnumerator LoadScene()
+    IEnumerator LoadTargetScene(string targetScene)
     {
-        yield return new WaitForSeconds(3);
+        Debug.Log("Scene Change");
 
-        AsyncOperation async = SceneManager.LoadSceneAsync("Lobby");
+        yield return new WaitForSeconds(1);
+
+        AsyncOperation async = SceneManager.LoadSceneAsync(targetScene);
 
         yield return true;
     }

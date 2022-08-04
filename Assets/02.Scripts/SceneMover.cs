@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneMover : MonoBehaviour
 {
+    // private field
+    bool isSceneChangeable = true; 
+
     // private method
     void Start()
     {
@@ -14,7 +17,12 @@ public class SceneMover : MonoBehaviour
     // public method
     public void LoadScene(string targetScene)
     {
-        StartCoroutine(LoadTargetScene(targetScene));
+        if(isSceneChangeable)
+        {
+            isSceneChangeable = false;
+            StartCoroutine(LoadTargetScene(targetScene));
+        }
+
     }
     
     IEnumerator LoadTargetScene(string targetScene)
@@ -24,6 +32,7 @@ public class SceneMover : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(targetScene);
+        isSceneChangeable = true;
 
         yield return true;
     }

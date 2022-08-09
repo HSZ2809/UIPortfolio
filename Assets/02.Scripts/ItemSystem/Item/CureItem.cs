@@ -13,9 +13,4 @@ public class CureItem : StackableItem, IUsableItem
 
         return true;
     }
-
-    protected override StackableItem Clone(int amount)
-    {
-        return new CureItem(StackableData as CureItemData, amount);
-    }
 }

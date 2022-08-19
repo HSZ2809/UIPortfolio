@@ -5,16 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class SceneMover : MonoBehaviour
 {
-    // private field
-    bool isSceneChangeable = true; 
+    #region Debug Code
 
-    // private method
+    #if UNITY_EDITOR
+
+    public bool debugMode = true;
+
+    #endif
+
+    #endregion  
+    
+    #region private field
+
+    bool isSceneChangeable = true;
+
+    #endregion
+
+    #region private method
+
     void Start()
     {
         DontDestroyOnLoad(this);
     }
 
-    // public method
+    #endregion
+
+    #region public method
+
     public void LoadScene(string targetScene)
     {
         if(isSceneChangeable)
@@ -24,10 +41,19 @@ public class SceneMover : MonoBehaviour
         }
 
     }
+
+    #endregion
     
+    #region private method
+
     IEnumerator LoadTargetScene(string targetScene)
     {
-        Debug.Log("Scene Change");
+        #if UNITY_EDITOR
+        if(debugMode)
+        {
+            Debug.Log("SceneManager >> Scene Change : " + targetScene);
+        }
+        #endif
 
         yield return new WaitForSeconds(1);
 
@@ -36,4 +62,6 @@ public class SceneMover : MonoBehaviour
 
         yield return true;
     }
+
+    #endregion
 }

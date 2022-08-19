@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int diamond;
     [SerializeField] private int stamina;
 
-    private List<Item> items;
+    private List<Item> items = new List<Item>();
 
     #endregion
     ///////////////////////////////////////////

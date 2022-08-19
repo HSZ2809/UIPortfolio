@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf88bac5b4c82c42be4f278665aa12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 1
 --- !u!4 &199696281
 Transform:
   m_ObjectHideFlags: 0
@@ -848,3 +849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6bcdb979b8f6042a53b4429ca9608c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 0
+  diamond: 0
+  stamina: 0

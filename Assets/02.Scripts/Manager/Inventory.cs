@@ -105,13 +105,15 @@ public class Inventory : MonoBehaviour
 
     public ItemData GetItemData(int index)
     {
-        if (items[index] == null) return null;
+        if (items.Capacity < index + 1) return null;
 
         return items[index].Data;
     }
 
     public Item GetItem(int index)
     {
+        if (items.Capacity < index + 1) return null;
+
         return items[index];
     }
 
@@ -123,6 +125,11 @@ public class Inventory : MonoBehaviour
     public void Remove(int index)
     {
         items[index] = null;
+    }
+
+    public int GetInventoryCount()
+    {
+        return items.Count;
     }
 
     #endregion

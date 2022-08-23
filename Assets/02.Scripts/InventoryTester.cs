@@ -19,7 +19,6 @@ using UnityEngine;
 
 public class InventoryTester : MonoBehaviour
 {
-    public ControlUI controlUI;
     public Inventory inventory;
 
     public ItemData[] itemDataArray;
@@ -29,13 +28,10 @@ public class InventoryTester : MonoBehaviour
         inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
     }
 
-    private void Update()
+    public void ItemTest()
     {
-        if(Input.GetKeyDown("k"))
-        {
-            inventory.AddItem(itemDataArray[0], 1);
+        inventory.AddItem(itemDataArray[0], 1);
 
-            Debug.Log("Success");
-        }
+        Debug.Log("Inventory Tester >> Item Added : " + itemDataArray[0]);
     }
 }

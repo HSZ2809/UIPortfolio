@@ -18,7 +18,7 @@ using UnityEngine.UI;
     [연결된 오브젝트]
     - 아이템의 이미지
     - 아이템의 갯수를 반영하는 텍스트
-    - 연결된 저장소
+    - UIControler
     - 로직에 필요한 것들
 
     [필드]
@@ -36,26 +36,25 @@ public class ItemSlotUI : MonoBehaviour
 
     [SerializeField] private Image icon;
     [SerializeField] private Text amountText;
-    private RectTransform iconRect;
-    private RectTransform slotRect;
+    // private RectTransform iconRect;
+    // private RectTransform slotRect;
     private Image slotImage;
     
     [SerializeField] private int index;
 
     [Space]
-    [SerializeField] private Inventory inventory;
+    [SerializeField] private UIControler uiControler;
     // [SerializeField] private ItemType slotType;
 
     private bool canAccessibleSlot = true;
     private bool canAccessibleItem = true;
 
     public int Index { get{ return index; } }
-    public bool HasItem { get{ return icon.sprite != null; } }
+    // public bool HasItem { get{ return icon.sprite != null; } }
     public bool CanAccessible { get{ return canAccessibleSlot && canAccessibleItem; } }
-    // public ItemType SlotType => slotType;
 
-    public RectTransform IconRect { get{ return iconRect;} }
-    public RectTransform SlotRect { get{ return slotRect;} }
+    // public RectTransform IconRect { get{ return iconRect;} }
+    // public RectTransform SlotRect { get{ return slotRect;} }
 
     public readonly Color cannotAccessibleSlotColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -70,9 +69,10 @@ public class ItemSlotUI : MonoBehaviour
         icon = transform.GetChild(0).GetComponent<Image>();
         amountText = transform.GetChild(0).GetChild(0).GetComponent<Text>();
         slotImage = GetComponent<Image>();
-        slotRect = GetComponent<RectTransform>();
-        iconRect = icon.rectTransform;
-        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
+        // slotRect = GetComponent<RectTransform>();
+        // iconRect = icon.rectTransform;
+        uiControler = GameObject.FindGameObjectWithTag("UIControler").GetComponent<UIControler>();
+        // inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
 
         icon.raycastTarget = false;
         amountText.raycastTarget = false;
@@ -94,6 +94,8 @@ public class ItemSlotUI : MonoBehaviour
     ///////////////////////////////////////////
     #region public method
 
+    public void SetSlotIndex(int _index) => index = _index;
+
     public void SetSlotState(bool check)
     {
         if(canAccessibleSlot == check) return;
@@ -110,22 +112,6 @@ public class ItemSlotUI : MonoBehaviour
         }
 
         canAccessibleSlot = check;
-    }
-
-    public void ChangeIcon(ItemSlotUI other)
-    {
-        if(other == null) return;
-        if(other == this) return;
-        if(other.CanAccessible == false) return;
-
-        Sprite temp = icon.sprite;
-
-        if(other.HasItem)
-            SetItem(other.icon.sprite);
-        else
-            RemoveItem();
-
-        other.SetItem(temp);
     }
 
     public void SetItem(Sprite itemSprite)
@@ -150,7 +136,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void SetItemAmount(int amount)
     {
-        if(HasItem && amount > 1)
+        if(amount > 1)
             ShowText();
         else
             HideText();
@@ -169,9 +155,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void UpdateSlot()
     {
-        // if (!IsIndexCanUse(index)) return;
-
-        Item item = inventory.GetItem(Index);
+        Item item = uiControler._Inventory.GetItem(Index);
 
         if (item != null)
         {

@@ -55,7 +55,7 @@ public class SceneMover : MonoBehaviour
         }
         #endif
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds((float)0.3);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(targetScene);
         isSceneChangeable = true;

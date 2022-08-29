@@ -35,7 +35,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int diamond;
     [SerializeField] private int stamina;
 
-    private List<Item> items = new List<Item>();
+    private List<Item> weaponItems = new List<Item>();
+    private List<StigmaItem> stigmaItems = new List<StigmaItem>();
 
     #endregion
     ///////////////////////////////////////////
@@ -48,11 +49,12 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    // 수정 필요
     private int FindStackableItemSlot(StackableItemData item, int startIndex = 0)
     {
-        for(int i = startIndex; i < items.Capacity; i++)
+        for(int i = startIndex; i < weaponItems.Capacity; i++)
         {
-            Item searchedItem = items[i];
+            Item searchedItem = weaponItems[i];
 
             if(searchedItem.Data == item && searchedItem is StackableItem si)
             {
@@ -84,52 +86,55 @@ public class Inventory : MonoBehaviour
                 StackableItem si = siData.CreateItem() as StackableItem;
                 si.SetAmount(amount);
 
-                items.Add(si);
+                weaponItems.Add(si);
 
                 amount = (amount > siData.MaxAmount) ? (amount - siData.MaxAmount) : 0;
             }
             else
             {
-                StackableItem si = items[index] as StackableItem;
+                StackableItem si = weaponItems[index] as StackableItem;
                 amount = si.AddAmountAndGetExcess(amount);
             }
         }
         else
         {
-            items.Add(itemData.CreateItem());
+            weaponItems.Add(itemData.CreateItem());
             amount = 0;
         }
 
         return amount;
     }
 
-    public ItemData GetItemData(int index)
+    public void AddStigmaItem(StigmaItemData itemData)
     {
-        if (items.Capacity < index + 1) return null;
-
-        return items[index].Data;
+        stigmaItems.Add(itemData.CreateItem() as StigmaItem);
     }
 
-    public Item GetItem(int index)
+    public Item GetItem(int index, SlotType st)
     {
-        if (items.Capacity < index + 1) return null;
+        switch(st)
+        {
+            case SlotType.WEAPON :
+            if (weaponItems.Capacity < index + 1) return null;
+            return weaponItems[index];
 
-        return items[index];
+            case SlotType.STIGMA :
+            if (stigmaItems.Capacity < index + 1) return null;
+            return stigmaItems[index];
+
+            default :
+            return null;
+        }
     }
 
-    public void SetItem(Item item, int index)
+    public int GetWeaponCount()
     {
-        items[index] = item;
+        return weaponItems.Count;
     }
 
-    public void Remove(int index)
+    public int GetStigmaCount()
     {
-        items[index] = null;
-    }
-
-    public int GetInventoryCount()
-    {
-        return items.Count;
+        return stigmaItems.Count;
     }
 
     #endregion

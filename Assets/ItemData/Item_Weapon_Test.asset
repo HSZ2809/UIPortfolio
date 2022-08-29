@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be323efc2a71414498d934aca6fd26a, type: 3}
   m_Name: Item_Weapon_Test
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1
   itemName: Test
   tooltip: "\uD0DC\uC2A4\uD2B8\uC6A9 \uBB34\uAE30\uC785\uB2C8\uB2E4"
-  iconSprite: {fileID: 21300000, guid: c53fc0cd66471f049b9a21b432ea372d, type: 3}
+  iconSprite: {fileID: 21300000, guid: 2dca9b083e539a54c9558488e5c9834e, type: 3}
   maxDurability: 100
   damage: 1
   weaponItemPrefab: {fileID: 5421963182862351036, guid: 468a4043136dd7045b3fab71d7f9c86c,

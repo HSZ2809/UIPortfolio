@@ -22,6 +22,7 @@ public class InventoryTester : MonoBehaviour
     public Inventory inventory;
 
     public ItemData[] itemDataArray;
+    public StigmaItemData[] stigmaItemArray;
 
     private void Awake() 
     {
@@ -33,5 +34,12 @@ public class InventoryTester : MonoBehaviour
         inventory.AddItem(itemDataArray[0], 1);
 
         Debug.Log("Inventory Tester >> Item Added : " + itemDataArray[0]);
+    }
+
+    public void SpawnStigmaItem()
+    {
+        inventory.AddStigmaItem(stigmaItemArray[0]);
+
+        Debug.Log("Inventory Tester >> Item Added : [Stigma]" + stigmaItemArray[0]);
     }
 }

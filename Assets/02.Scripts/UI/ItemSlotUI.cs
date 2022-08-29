@@ -29,6 +29,8 @@ using UnityEngine.UI;
     - 해당되는 저장소의 변경이 있을 때 그 결과를 반영
 ************************************************************/
 
+public enum SlotType { WEAPON, STIGMA, PIECE }
+
 public class ItemSlotUI : MonoBehaviour
 {
     ///////////////////////////////////////////
@@ -44,7 +46,7 @@ public class ItemSlotUI : MonoBehaviour
 
     [Space]
     [SerializeField] private UIControler uiControler;
-    // [SerializeField] private ItemType slotType;
+    [SerializeField] private SlotType slotType;
 
     private bool canAccessibleSlot = true;
     private bool canAccessibleItem = true;
@@ -95,6 +97,8 @@ public class ItemSlotUI : MonoBehaviour
     #region public method
 
     public void SetSlotIndex(int _index) => index = _index;
+
+    public void SetSlotType(SlotType st) => slotType = st;
 
     public void SetSlotState(bool check)
     {
@@ -155,7 +159,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void UpdateSlot()
     {
-        Item item = uiControler._Inventory.GetItem(Index);
+        Item item = uiControler._Inventory.GetItem(Index, slotType);
 
         if (item != null)
         {

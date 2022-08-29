@@ -29,11 +29,19 @@ public class UIControler : MonoBehaviour
     #region 변수 선언
 
     [Header("Item Slot")]
-    [SerializeField] private List<ItemSlotUI> slotList = new List<ItemSlotUI>();
+    [SerializeField] private List<ItemSlotUI> weaponSlotList = new List<ItemSlotUI>();
+    [SerializeField] private List<ItemSlotUI> stigmaSlotList = new List<ItemSlotUI>();
 
     [Header("Connected Component")]
     [SerializeField] private Inventory inventory;
     [SerializeField] private GameObject itmeSlotUIPref;
+
+    [Space]
+    [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private GameObject scrollView_Weapon;
+    [SerializeField] private Transform content_Weapon;
+    [SerializeField] private GameObject scrollView_Stigma;
+    [SerializeField] private Transform content_Stigma;
 
     public Inventory _Inventory { get{ return inventory; } }
             
@@ -50,16 +58,30 @@ public class UIControler : MonoBehaviour
 
     private void Start()
     {
-        int inventoryCount = inventory.GetInventoryCount();
-        slotList.Capacity = inventoryCount;
+        int inventoryCount = inventory.GetWeaponCount();
+        weaponSlotList.Capacity = inventoryCount;
 
         for(int i = 1; i <= inventoryCount; i++)
         {
-            GameObject itmeSlot = Instantiate(itmeSlotUIPref, this.transform.GetChild(0).GetChild(0).GetChild(0));
+            GameObject itmeSlot = Instantiate(itmeSlotUIPref, content_Weapon);
             itmeSlot.GetComponent<ItemSlotUI>().SetSlotIndex(i - 1);
+            itmeSlot.GetComponent<ItemSlotUI>().SetSlotType(SlotType.WEAPON);
             itmeSlot.gameObject.name = $"ItemSlot [{i - 1}]";
 
-            slotList.Add(itmeSlot.GetComponent<ItemSlotUI>());
+            weaponSlotList.Add(itmeSlot.GetComponent<ItemSlotUI>());
+        }
+
+        inventoryCount = inventory.GetStigmaCount();
+        stigmaSlotList.Capacity = inventoryCount;
+
+        for(int i = 1; i <= inventoryCount; i++)
+        {
+            GameObject itmeSlot = Instantiate(itmeSlotUIPref, content_Stigma);
+            itmeSlot.GetComponent<ItemSlotUI>().SetSlotIndex(i - 1);
+            itmeSlot.GetComponent<ItemSlotUI>().SetSlotType(SlotType.STIGMA);
+            itmeSlot.gameObject.name = $"ItemSlot [{i - 1}]";
+
+            stigmaSlotList.Add(itmeSlot.GetComponent<ItemSlotUI>());
         }
     }
 
@@ -73,25 +95,37 @@ public class UIControler : MonoBehaviour
     // 필요시에는 식제할 수도 있다.
     public void SetItemIcon(int index, Sprite icon)
     {
-        slotList[index].SetItem(icon);
+        weaponSlotList[index].SetItem(icon);
     }
 
     public void SetItemAmountText(int index, int amount)
     {
-        slotList[index].SetItemAmount(amount);
+        weaponSlotList[index].SetItemAmount(amount);
     }
 
     public void RemoveItem(int index)
     {
-        slotList[index].RemoveItem();
+        weaponSlotList[index].RemoveItem();
     }
 
     public void RefreshAllSlot() 
     {
-        for(int i = 0; i < slotList.Capacity; i++)
+        for(int i = 0; i < weaponSlotList.Capacity; i++)
         {
-            slotList[i].UpdateSlot();
+            weaponSlotList[i].UpdateSlot();
         }
+    }
+
+    public void ChangeContent1()
+    {
+        scrollView_Stigma.SetActive(false);
+        scrollView_Weapon.SetActive(true);
+    }
+
+    public void ChangeContent2()
+    {
+        scrollView_Weapon.SetActive(false);
+        scrollView_Stigma.SetActive(true);
     }
 
     #endregion

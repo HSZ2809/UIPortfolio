@@ -19,6 +19,15 @@ using UnityEngine;
 
 public class InventoryTester : MonoBehaviour
 {
+    #region Debug Code
+
+    #if UNITY_EDITOR
+
+    public bool debugMode = true;
+
+    #endif
+
+    #endregion 
     public Inventory inventory;
 
     public ItemData[] itemDataArray;
@@ -33,13 +42,23 @@ public class InventoryTester : MonoBehaviour
     {
         inventory.AddItem(itemDataArray[0], 1);
 
-        Debug.Log("Inventory Tester >> Item Added : " + itemDataArray[0]);
+        #if UNITY_EDITOR
+        if(debugMode)
+        {
+            Debug.Log("Inventory Tester >> Item Added : " + itemDataArray[0]);
+        }
+        #endif
     }
 
     public void SpawnStigmaItem()
     {
         inventory.AddStigmaItem(stigmaItemArray[0]);
 
-        Debug.Log("Inventory Tester >> Item Added : [Stigma]" + stigmaItemArray[0]);
+        #if UNITY_EDITOR
+        if(debugMode)
+        {
+            Debug.Log("Inventory Tester >> Item Added : [Stigma]" + stigmaItemArray[0]);
+        }
+        #endif
     }
 }

@@ -39,7 +39,6 @@ public class SceneMover : MonoBehaviour
             isSceneChangeable = false;
             StartCoroutine(LoadTargetScene(targetScene));
         }
-
     }
 
     #endregion
@@ -55,7 +54,7 @@ public class SceneMover : MonoBehaviour
         }
         #endif
 
-        yield return new WaitForSeconds((float)0.3);
+        yield return new WaitForSeconds((float)0.1);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(targetScene);
         isSceneChangeable = true;

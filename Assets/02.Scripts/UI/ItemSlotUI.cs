@@ -29,7 +29,7 @@ using UnityEngine.UI;
     - 해당되는 저장소의 변경이 있을 때 그 결과를 반영
 ************************************************************/
 
-public enum SlotType { WEAPON, STIGMA, PIECE }
+public enum SlotType { WEAPON, STIGMA, PIECE, CONSUMABLEITEM }
 
 public class ItemSlotUI : MonoBehaviour
 {

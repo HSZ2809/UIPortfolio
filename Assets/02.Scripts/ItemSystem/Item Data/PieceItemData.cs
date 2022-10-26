@@ -6,7 +6,7 @@ using UnityEngine;
 #pragma warning disable 649, CS0067
 #pragma warning disable 67, CS0649
 
-[CreateAssetMenu(fileName = "Item_Material_", menuName = "Item Data/Material", order = 4)]
+[CreateAssetMenu(fileName = "Item_Piece_", menuName = "Item Data/Piece", order = 4)]
 public class PieceItemData : StackableItemData
 {
     public override Item CreateItem()

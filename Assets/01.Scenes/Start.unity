@@ -761,7 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fabe6221983ec488b5f1577aa10a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Lobby
+  sceneName: 1
+  mode: 0
 --- !u!1 &484009896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1038,7 @@ MonoBehaviour:
   btnExit:
   - {fileID: 1853464969}
   - {fileID: 67632118}
+  - {fileID: 1350281753}
   testbtn: {fileID: 67632120}
 --- !u!4 &672568191
 Transform:

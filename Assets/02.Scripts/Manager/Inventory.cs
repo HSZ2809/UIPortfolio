@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 변수 미할당 시 출력되는 오류 메시지 출력을 막는 코드
-#pragma warning disable 649, CS0067
-#pragma warning disable 67, CS0649
-
 /************************************************************
 주석 작성일자 : 2022-10-26
 작성자 : 홍성준
@@ -20,155 +16,167 @@ using UnityEngine;
 
     [주의사항]
 ************************************************************/
-
-public class Inventory : MonoBehaviour
+namespace ZUN
 {
-    ///////////////////////////////////////////
-    #region private field
-
-    [SerializeField] private int gold;
-    [SerializeField] private int diamond;
-    [SerializeField] private int stamina;
-
-    private List<Item> weaponItems = new List<Item>();
-    private List<StigmaItem> stigmaItems = new List<StigmaItem>();
-    private List<PieceItem> pieceItems = new List<PieceItem>();
-    private List<ConsumableItem> consumableItems = new List<ConsumableItem>();
-
-    #endregion
-    ///////////////////////////////////////////
-
-    ///////////////////////////////////////////
-    #region private method
-
-    private void Start()
+    public class Inventory : MonoBehaviour
     {
-        DontDestroyOnLoad(this);
-    }
+        ///////////////////////////////////////////
+        #region private field
 
-    // 수정 필요
-    private int FindStackableItemSlot(StackableItemData item, int startIndex = 0)
-    {
-        for(int i = startIndex; i < weaponItems.Capacity; i++)
+        [SerializeField] private int gold = -1;
+        [SerializeField] private int diamond = -1;
+        [SerializeField] private int stamina = -1;
+
+        private List<Item>           weaponItems = new List<Item>();
+        private List<StigmaItem>     stigmaItems = new List<StigmaItem>();
+        private List<PieceItem>      pieceItems = new List<PieceItem>();
+        private List<ConsumableItem> consumableItems = new List<ConsumableItem>();
+
+        #endregion
+        ///////////////////////////////////////////
+
+        ///////////////////////////////////////////
+        #region private method
+
+        private void Start()
         {
-            Item searchedItem = weaponItems[i];
+            DontDestroyOnLoad(this);
+        }
 
-            if(searchedItem.Data == item && searchedItem is StackableItem si)
+        private int FindPieceItem(PieceItemData item, int startIndex = 0)
+        {
+            for(int i = startIndex; i < pieceItems.Capacity; i++)
             {
-                return i;
+                if(pieceItems[i].Data == item)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        private int FindConsumableItem(ConsumableItemData item, int startIndex = 0)
+        {
+            for(int i = startIndex; i < consumableItems.Capacity; i++)
+            {
+                if(consumableItems[i].Data == item)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        #endregion
+        ///////////////////////////////////////////
+
+        ///////////////////////////////////////////
+        #region public method
+
+        public void AddWeaponItem(WeaponItemData itemData)
+        {
+
+            weaponItems.Add(itemData.CreateItem() as WeaponItem);
+        }
+
+        public void AddStigmaItem(StigmaItemData itemData)
+        {
+            stigmaItems.Add(itemData.CreateItem() as StigmaItem);
+        }
+
+        public void AddPieceItem(PieceItemData itemData)
+        {
+            pieceItems.Add(itemData.CreateItem() as PieceItem);
+        }
+
+        public void AddConsumableItem(ConsumableItemData itemData)
+        {
+            consumableItems.Add(itemData.CreateItem() as ConsumableItem);
+        }
+
+        public Item GetItem(int index, SlotType st)
+        {
+            switch(st)
+            {
+                case SlotType.WEAPON :
+                if (weaponItems.Capacity < index + 1) return null;
+                return weaponItems[index];
+
+                case SlotType.STIGMA :
+                if (stigmaItems.Capacity < index + 1) return null;
+                return stigmaItems[index];
+
+                case SlotType.PIECE :
+                if (pieceItems.Capacity < index + 1) return null;
+                return pieceItems[index];
+
+                case SlotType.CONSUMABLEITEM :
+                if (consumableItems.Capacity < index + 1) return null;
+                return consumableItems[index];
+
+                default :
+                return null;
             }
         }
 
-        return -1;
-    }
-
-    #endregion
-    ///////////////////////////////////////////
-
-    ///////////////////////////////////////////
-    #region public method
-
-    public void AddWeaponItem(WeaponItemData itemData)
-    {
-
-        weaponItems.Add(itemData.CreateItem() as WeaponItem);
-    }
-
-    public void AddStigmaItem(StigmaItemData itemData)
-    {
-        stigmaItems.Add(itemData.CreateItem() as StigmaItem);
-    }
-
-    public void AddPieceItem(PieceItemData itemData)
-    {
-        pieceItems.Add(itemData.CreateItem() as PieceItem);
-    }
-
-    public void AddConsumableItem(ConsumableItemData itemData)
-    {
-        consumableItems.Add(itemData.CreateItem() as ConsumableItem);
-    }
-
-    public Item GetItem(int index, SlotType st)
-    {
-        switch(st)
+        public int GetWeaponCount()
         {
-            case SlotType.WEAPON :
-            if (weaponItems.Capacity < index + 1) return null;
-            return weaponItems[index];
-
-            case SlotType.STIGMA :
-            if (stigmaItems.Capacity < index + 1) return null;
-            return stigmaItems[index];
-
-            case SlotType.PIECE :
-            if (pieceItems.Capacity < index + 1) return null;
-            return pieceItems[index];
-
-            case SlotType.CONSUMABLEITEM :
-            if (consumableItems.Capacity < index + 1) return null;
-            return consumableItems[index];
-
-            default :
-            return null;
+            return weaponItems.Count;
         }
+
+        public int GetStigmaCount()
+        {
+            return stigmaItems.Count;
+        }
+
+        public int GetPieceCount()
+        {
+            return pieceItems.Count;
+        }
+
+        public int GetConsumableItemCount()
+        {
+            return consumableItems.Count;
+        }
+
+        #endregion
+        ///////////////////////////////////////////
+
+        // 수량이 있는 아이템을 추가하는 로직. 수정 필요.
+        // public int AddItem(ItemData itemData, int amount)
+        // {
+        //     int index;
+
+        //     if(itemData is StackableItemData siData)
+        //     {
+        //         index = -1;
+
+        //         index = FindStackableItemSlot(siData, index + 1);
+
+        //         if(index == -1)
+        //         {
+        //             StackableItem si = siData.CreateItem() as StackableItem;
+        //             si.SetAmount(amount);
+
+        //             weaponItems.Add(si);
+
+        //             amount = (amount > siData.MaxAmount) ? (amount - siData.MaxAmount) : 0;
+        //         }
+        //         else
+        //         {
+        //             StackableItem si = weaponItems[index] as StackableItem;
+        //             amount = si.AddAmountAndGetExcess(amount);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         weaponItems.Add(itemData.CreateItem());
+        //         amount = 0;
+        //     }
+
+        //     return amount;
+        // }
     }
-
-    public int GetWeaponCount()
-    {
-        return weaponItems.Count;
-    }
-
-    public int GetStigmaCount()
-    {
-        return stigmaItems.Count;
-    }
-
-    public int GetPieceCount()
-    {
-        return pieceItems.Count;
-    }
-
-    public int GetConsumableItemCount()
-    {
-        return consumableItems.Count;
-    }
-
-    #endregion
-    ///////////////////////////////////////////
-
-    // 수량이 있는 아이템을 추가하는 로직. 수정 필요.
-    // public int AddItem(ItemData itemData, int amount)
-    // {
-    //     int index;
-
-    //     if(itemData is StackableItemData siData)
-    //     {
-    //         index = -1;
-
-    //         index = FindStackableItemSlot(siData, index + 1);
-
-    //         if(index == -1)
-    //         {
-    //             StackableItem si = siData.CreateItem() as StackableItem;
-    //             si.SetAmount(amount);
-
-    //             weaponItems.Add(si);
-
-    //             amount = (amount > siData.MaxAmount) ? (amount - siData.MaxAmount) : 0;
-    //         }
-    //         else
-    //         {
-    //             StackableItem si = weaponItems[index] as StackableItem;
-    //             amount = si.AddAmountAndGetExcess(amount);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         weaponItems.Add(itemData.CreateItem());
-    //         amount = 0;
-    //     }
-
-    //     return amount;
-    // }
 }

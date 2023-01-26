@@ -6,8 +6,6 @@ using UnityEngine;
 public abstract class EquipmentItemData : ItemData
 {
     public int MaxDurability => maxDurability;
-    // public ItemType EquipType => equipType;
 
     [SerializeField] private int maxDurability = 100;
-    // [SerializeField] private ItemType equipType;
 }

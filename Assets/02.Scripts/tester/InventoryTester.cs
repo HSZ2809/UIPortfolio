@@ -19,74 +19,77 @@ using UnityEngine;
     [주의사항]
 ************************************************************/
 
-public class InventoryTester : MonoBehaviour
+namespace ZUN
 {
-    #region Debug Code
-
-    #if UNITY_EDITOR
-
-    public bool debugMode = true;
-
-    #endif
-
-    #endregion 
-    public Inventory inventory;
-
-    public WeaponItemData[] WeaponItemDataArray;
-    public StigmaItemData[] stigmaItemDataArray;
-    public PieceItemData[] pieceItemDataArray;
-    public ConsumableItemData[] consumableItemDataArray;
-
-    private void Awake() 
+    public class InventoryTester : MonoBehaviour
     {
-        inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
-    }
-
-    public void ItemTest()
-    {
-        inventory.AddWeaponItem(WeaponItemDataArray[0]);
+        #region Debug Code
 
         #if UNITY_EDITOR
-        if(debugMode)
-        {
-            Debug.Log("Inventory Tester >> Item Added : [Weapon]" + WeaponItemDataArray[0]);
-        }
+
+        public bool debugMode = true;
+
         #endif
-    }
 
-    public void SpawnStigmaItem()
-    {
-        inventory.AddStigmaItem(stigmaItemDataArray[0]);
+        #endregion 
+        public ZUN.Inventory inventory;
 
-        #if UNITY_EDITOR
-        if(debugMode)
+        public WeaponItemData[] WeaponItemDataArray;
+        public StigmaItemData[] stigmaItemDataArray;
+        public PieceItemData[] pieceItemDataArray;
+        public ConsumableItemData[] consumableItemDataArray;
+
+        private void Awake() 
         {
-            Debug.Log("Inventory Tester >> Item Added : [Stigma]" + stigmaItemDataArray[0]);
+            inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<ZUN.Inventory>();
         }
-        #endif
-    }
 
-    public void SpawnPieceItem()
-    {
-        inventory.AddPieceItem(pieceItemDataArray[0]);
-
-        #if UNITY_EDITOR
-        if(debugMode)
+        public void ItemTest()
         {
-            Debug.Log("Inventory Tester >> Item Added : [Piece]" + pieceItemDataArray[0]);
+            inventory.AddWeaponItem(WeaponItemDataArray[0]);
+
+            #if UNITY_EDITOR
+            if(debugMode)
+            {
+                Debug.Log("Inventory Tester >> Item Added : [Weapon]" + WeaponItemDataArray[0]);
+            }
+            #endif
         }
-        #endif
-    }
 
-    public void SpawnConsumableItem()
-    {
-        inventory.AddConsumableItem(consumableItemDataArray[0]);
-
-        #if UNITY_EDITOR
-        if(debugMode)
+        public void SpawnStigmaItem()
         {
-            Debug.Log("Inventory Tester >> Item Added : [ConsumableItem]" + consumableItemDataArray[0]);
+            inventory.AddStigmaItem(stigmaItemDataArray[0]);
+
+            #if UNITY_EDITOR
+            if(debugMode)
+            {
+                Debug.Log("Inventory Tester >> Item Added : [Stigma]" + stigmaItemDataArray[0]);
+            }
+            #endif
         }
-        #endif
+
+        public void SpawnPieceItem()
+        {
+            inventory.AddPieceItem(pieceItemDataArray[0]);
+
+            #if UNITY_EDITOR
+            if(debugMode)
+            {
+                Debug.Log("Inventory Tester >> Item Added : [Piece]" + pieceItemDataArray[0]);
+            }
+            #endif
+        }
+
+        public void SpawnConsumableItem()
+        {
+            inventory.AddConsumableItem(consumableItemDataArray[0]);
+
+            #if UNITY_EDITOR
+            if(debugMode)
+            {
+                Debug.Log("Inventory Tester >> Item Added : [ConsumableItem]" + consumableItemDataArray[0]);
+            }
+            #endif
+        }
     }
 }

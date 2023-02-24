@@ -2162,12 +2162,30 @@ MonoBehaviour:
   inventory: {fileID: 0}
   WeaponItemDataArray:
   - {fileID: 11400000, guid: f49197aa08252da48aae366dead65f23, type: 2}
+  - {fileID: 11400000, guid: 9f86de641c9012841bbfb050cc8bd0c9, type: 2}
+  - {fileID: 11400000, guid: 2ca056e8683876040a58574212989b34, type: 2}
+  - {fileID: 11400000, guid: e5c3d50f08178674597dcf7ad28c860a, type: 2}
+  - {fileID: 11400000, guid: 670f4bc232b497b488dd28166e76aed7, type: 2}
   stigmaItemDataArray:
   - {fileID: 11400000, guid: 3cdd372de1e85a34fb4e166402dca4aa, type: 2}
+  - {fileID: 11400000, guid: e15d71fe668973a4194c37fe6b1c17ff, type: 2}
+  - {fileID: 11400000, guid: 267a6a1f34c9e804da229db82d1b67fe, type: 2}
+  - {fileID: 11400000, guid: 04a9dfce2ac2c9843a562455a6b641f2, type: 2}
+  - {fileID: 11400000, guid: f431795f3d816e7489a94170e710e2ed, type: 2}
   pieceItemDataArray:
   - {fileID: 11400000, guid: 61d3d7b9d54af3c41bfa57810ad8cce4, type: 2}
+  - {fileID: 11400000, guid: 993319f361b44f540b625035db496000, type: 2}
+  - {fileID: 11400000, guid: fdb52a67f8d151e428d3d1807d851a63, type: 2}
+  - {fileID: 11400000, guid: 037858b352f797d4d841ef8a5dafd705, type: 2}
+  - {fileID: 11400000, guid: 3707a21b84d9ccc4280422c9312854d5, type: 2}
+  pieceAmount: 2
   consumableItemDataArray:
   - {fileID: 11400000, guid: a833e5dbda6bb794eb5a1878388c9c0d, type: 2}
+  - {fileID: 11400000, guid: 3fb444e9cf9028d44aab80b6873e085e, type: 2}
+  - {fileID: 11400000, guid: fd55d332e8dfd0c44a2ad5b75ad35a63, type: 2}
+  - {fileID: 11400000, guid: 0c3ddba078bde104a86d9502a353e579, type: 2}
+  - {fileID: 11400000, guid: e3768dd47d76bb645bc8c070a2143a60, type: 2}
+  consumableItemAmount: 1
 --- !u!1 &1845829755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,7 +2269,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1677567450}
-        m_MethodName: ItemTest
+        m_MethodName: SpawnWeaponItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

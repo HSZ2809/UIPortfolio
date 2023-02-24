@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ef898ab73fa4645b58c6247f5ca2a4, type: 3}
-  m_Name: Item_Piece_Test
+  m_Script: {fileID: 11500000, guid: 12038bd60cc6eb14993f11a25eddb5ca, type: 3}
+  m_Name: Item_ConsumableItem_4
   m_EditorClassIdentifier: 
-  id: 3
+  id: 1
   itemName: Test
-  tooltip: "\uD14C\uC2A4\uD2B8\uC6A9 \uC870\uAC01"
-  iconSprite: {fileID: 21300000, guid: 4ce08af1e26d04c47b1f0200d3732307, type: 3}
+  tooltip: "\uD14C\uC2A4\uD2B8\uC6A9 \uC18C\uBE44 \uC544\uC774\uD15C"
+  iconSprite: {fileID: 21300000, guid: 9997af63bce51d443b02e8a1791faec5, type: 3}
   maxAmount: 50
+  value: 0

@@ -6,5 +6,5 @@ using UnityEngine;
 public abstract class StackableItemData : ItemData
 {
     public int MaxAmount => maxAmount;
-    [SerializeField] private int maxAmount = 50;
+    [SerializeField] private int maxAmount = 99;
 }

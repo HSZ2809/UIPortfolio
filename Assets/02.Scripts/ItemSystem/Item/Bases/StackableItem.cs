@@ -10,7 +10,7 @@ public abstract class StackableItem : Item
     // 현재 아이템 개수
     public int Amount { get; protected set; }
 
-    // 하나의 슬롯이 가질 수 있는 최대 개수(기본 9999)
+    // 하나의 슬롯이 가질 수 있는 최대 개수(기본 99)
     public int MaxAmount => StackableData.MaxAmount;
 
     // 수량이 가득 찼는지 여부

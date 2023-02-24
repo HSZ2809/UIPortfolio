@@ -37,14 +37,16 @@ namespace ZUN
         public WeaponItemData[] WeaponItemDataArray;
         public StigmaItemData[] stigmaItemDataArray;
         public PieceItemData[] pieceItemDataArray;
+        public int pieceAmount = 0;
         public ConsumableItemData[] consumableItemDataArray;
+        public int consumableItemAmount = 0;
 
         private void Awake() 
         {
             inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<ZUN.Inventory>();
         }
 
-        public void ItemTest()
+        public void SpawnWeaponItem()
         {
             inventory.AddWeaponItem(WeaponItemDataArray[0]);
 
@@ -70,7 +72,8 @@ namespace ZUN
 
         public void SpawnPieceItem()
         {
-            inventory.AddPieceItem(pieceItemDataArray[0]);
+            inventory.AddPieceItem(pieceItemDataArray[0], pieceAmount);
+            inventory.AddPieceItem(pieceItemDataArray[1], pieceAmount + 3);
 
             #if UNITY_EDITOR
             if(debugMode)
@@ -82,7 +85,8 @@ namespace ZUN
 
         public void SpawnConsumableItem()
         {
-            inventory.AddConsumableItem(consumableItemDataArray[0]);
+            inventory.AddConsumableItem(consumableItemDataArray[0], consumableItemAmount);
+            inventory.AddConsumableItem(consumableItemDataArray[2], consumableItemAmount + 1);
 
             #if UNITY_EDITOR
             if(debugMode)

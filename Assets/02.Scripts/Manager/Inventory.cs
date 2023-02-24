@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ namespace ZUN
         [SerializeField] private int diamond = -1;
         [SerializeField] private int stamina = -1;
 
-        private List<Item>           weaponItems = new List<Item>();
+        private List<WeaponItem>     weaponItems = new List<WeaponItem>();
         private List<StigmaItem>     stigmaItems = new List<StigmaItem>();
         private List<PieceItem>      pieceItems = new List<PieceItem>();
         private List<ConsumableItem> consumableItems = new List<ConsumableItem>();
@@ -77,7 +77,6 @@ namespace ZUN
 
         public void AddWeaponItem(WeaponItemData itemData)
         {
-
             weaponItems.Add(itemData.CreateItem() as WeaponItem);
         }
 
@@ -86,14 +85,32 @@ namespace ZUN
             stigmaItems.Add(itemData.CreateItem() as StigmaItem);
         }
 
-        public void AddPieceItem(PieceItemData itemData)
+        public int AddPieceItem(PieceItemData itemData, int amount)
         {
+            for(int i = 0; i < pieceItems.Count; i++)
+            {
+                if(pieceItems[i].Data == itemData)
+                {
+                    return pieceItems[i].AddAmountAndGetExcess(amount);
+                }
+            }
+
             pieceItems.Add(itemData.CreateItem() as PieceItem);
+            return pieceItems[pieceItems.Count - 1].AddAmountAndGetExcess(amount);
         }
 
-        public void AddConsumableItem(ConsumableItemData itemData)
+        public int AddConsumableItem(ConsumableItemData itemData, int amount)
         {
+            for(int i = 0; i < consumableItems.Count; i++)
+            {
+                if(consumableItems[i].Data == itemData)
+                {
+                    return consumableItems[i].AddAmountAndGetExcess(amount);
+                }
+            }
+
             consumableItems.Add(itemData.CreateItem() as ConsumableItem);
+            return consumableItems[consumableItems.Count - 1].AddAmountAndGetExcess(amount);
         }
 
         public Item GetItem(int index, SlotType st)
@@ -143,40 +160,5 @@ namespace ZUN
 
         #endregion
         ///////////////////////////////////////////
-
-        // 수량이 있는 아이템을 추가하는 로직. 수정 필요.
-        // public int AddItem(ItemData itemData, int amount)
-        // {
-        //     int index;
-
-        //     if(itemData is StackableItemData siData)
-        //     {
-        //         index = -1;
-
-        //         index = FindStackableItemSlot(siData, index + 1);
-
-        //         if(index == -1)
-        //         {
-        //             StackableItem si = siData.CreateItem() as StackableItem;
-        //             si.SetAmount(amount);
-
-        //             weaponItems.Add(si);
-
-        //             amount = (amount > siData.MaxAmount) ? (amount - siData.MaxAmount) : 0;
-        //         }
-        //         else
-        //         {
-        //             StackableItem si = weaponItems[index] as StackableItem;
-        //             amount = si.AddAmountAndGetExcess(amount);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         weaponItems.Add(itemData.CreateItem());
-        //         amount = 0;
-        //     }
-
-        //     return amount;
-        // }
     }
 }

@@ -11,7 +11,7 @@ namespace ZUN
         private ZUN.SceneLoadManager sceneMoveManager = null;
         private DialogControler notion = null;
 
-        private void Awake() 
+        private void Awake()
         {
             sceneMoveManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ZUN.SceneLoadManager>();
             notion = GameObject.FindGameObjectWithTag("Notion").GetComponent<DialogControler>();
@@ -30,13 +30,15 @@ namespace ZUN
 
         public void RequestUnloadScene()
         {
+            #if UNITY_EDITOR
             if(sceneName == ZUN.SceneList.DEFAULT)
             {
-                notion.ShowDialog("error", "Scene not assigned");
-                return;
+                Debug.Log("Scene unassigned error");
             }
+            #endif
 
-            sceneMoveManager.UnloadScene(sceneName);
+            if(sceneName != ZUN.SceneList.DEFAULT)
+                sceneMoveManager.UnloadScene(sceneName);
         }
     }
 }

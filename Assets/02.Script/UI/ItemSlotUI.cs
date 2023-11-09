@@ -48,6 +48,9 @@ namespace ZUN
         private bool canAccessibleSlot = true;
         private bool canAccessibleItem = true;
 
+        private ZUN.SceneLoadManager sceneLoadManager = null;
+        private ZUN.ItemBuffer itemBuffer = null;
+
         public int Index { get{ return index; } }
         // public bool HasItem { get{ return icon.sprite != null; } }
         public bool CanAccessible { get{ return canAccessibleSlot && canAccessibleItem; } }
@@ -72,6 +75,9 @@ namespace ZUN
             // iconRect = icon.rectTransform;
             uiControler = GameObject.FindGameObjectWithTag("UIControler").GetComponent<UIControler>();
             // inventory = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<Inventory>();
+
+            sceneLoadManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ZUN.SceneLoadManager>();
+            // itemBuffer = 
 
             icon.raycastTarget = false;
             amountText.raycastTarget = false;
@@ -189,6 +195,18 @@ namespace ZUN
                 RemoveItem();
                 SetItemAmount(1);
             }
+        }
+
+        public void SelectItem()
+        {
+            ItemBuffer itemBuffer = GameObject.FindObjectOfType<ItemBuffer>();
+            Item item = uiControler._Inventory.GetItem(Index, slotType);
+
+            Debug.Log("Item Selected : " + item.Data.Name);
+
+            itemBuffer.WI = (WeaponItem)item;
+
+            sceneLoadManager.LoadItemInfoScene(item, slotType);
         }
         
         #endregion

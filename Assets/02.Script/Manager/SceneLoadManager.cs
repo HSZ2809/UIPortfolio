@@ -20,7 +20,9 @@ namespace ZUN
         DEFAULT = -1,
         Start,
         Lobby,
-        Inventory
+        Inventory,
+        Info_Weapon,
+        Info_stigma
     }
 
     public class SceneLoadManager : MonoBehaviour
@@ -62,7 +64,7 @@ namespace ZUN
             }
             #endif
 
-            yield return new WaitForSeconds(0.1f);
+            // yield return new WaitForSeconds(0.1f);
             
 
             AsyncOperation async = SceneManager.LoadSceneAsync((int)targetScene, mode);
@@ -96,6 +98,27 @@ namespace ZUN
             #endif
 
             SceneManager.UnloadSceneAsync((int)targetScene);
+        }
+
+        public void LoadItemInfoScene(Item item, ZUN.SlotType itemType)
+        {
+            StartCoroutine(LoadTargetScene(ZUN.SceneList.Info_Weapon, LoadSceneMode.Additive));
+
+            // while(isSceneChangeable)
+            // {
+            //     // 대기를 어떻게 해야 하는가?
+            //     int i  = 0;
+            //     i++;
+            //     if(i > 1000)
+            //         break;
+            // }
+
+            // WeaponInfoViewer WIV = null;
+            // while(WIV == null)
+            // {
+            //     WIV = GameObject.FindObjectOfType<WeaponInfoViewer>();
+            // }
+            // WIV.item = item;
         }
 
         #endregion

@@ -9,13 +9,13 @@ namespace ZUN
         // private field
         [SerializeField] private ZUN.SceneList sceneName = ZUN.SceneList.DEFAULT;
         [SerializeField] private UnityEngine.SceneManagement.LoadSceneMode mode;
-        private ZUN.SceneLoadManager sceneMoveManager = null;
+        private ZUN.SceneLoadManager sceneLoadManager = null;
         private DialogControler notion = null;
 
         // private method
         private void Awake() 
         {
-            sceneMoveManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ZUN.SceneLoadManager>();
+            sceneLoadManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ZUN.SceneLoadManager>();
             notion = GameObject.FindGameObjectWithTag("Notion").GetComponent<DialogControler>();
         }
 
@@ -27,7 +27,7 @@ namespace ZUN
                 return;
             }
 
-            sceneMoveManager.LoadScene(sceneName, mode);
+            sceneLoadManager.LoadScene(sceneName, mode);
         }
     }
 }
